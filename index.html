@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ร้านค้าออนไลน์</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+        }
+        #product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .product {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .product img {
+            max-width: 100%;
+            height: auto;
+        }
+        .price {
+            color: #2ecc71;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ร้านค้าออนไลน์</h1>
+    </header>
+    <main>
+        <div id="product-grid"></div>
+    </main>
+
+    <script src="products.js"></script>
+    <script>
+        function displayProducts() {
+            const productGrid = document.getElementById('product-grid');
+            console.log("Products:", products); // เพิ่มบรรทัดนี้เพื่อตรวจสอบข้อมูลสินค้า
+            if (!products || products.length === 0) {
+                console.log("No products found");
+                productGrid.innerHTML = "<p>ไม่พบสินค้า</p>";
+                return;
+            }
+            products.forEach(product => {
+                console.log("Displaying product:", product); // เพิ่มบรรทัดนี้เพื่อตรวจสอบแต่ละสินค้า
+                const productElement = document.createElement('div');
+                productElement.className = 'product';
+                productElement.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/150'">
+                    <h2>${product.name}</h2>
+                    <p class="price">฿${product.price.toFixed(2)}</p>
+                    <p>${product.description}</p>
+                    <button onclick="addToCart('${product.name}')">เพิ่มลงตะกร้า</button>
+                `;
+                productGrid.appendChild(productElement);
+            });
+        }
+
+        function addToCart(productName) {
+            alert(`เพิ่ม ${productName} ลงในตะกร้าแล้ว`);
+            // เพิ่มโค้ดสำหรับการจัดการตะกร้าสินค้าที่นี่
+        }
+
+        // เรียกใช้ฟังก์ชันเมื่อหน้าเว็บโหลดเสร็จ
+        window.onload = displayProducts;
+    </script>
+</body>
+</html>
